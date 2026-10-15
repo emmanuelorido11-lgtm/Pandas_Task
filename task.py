@@ -13,6 +13,25 @@ PRODUCTS_DF = pd.DataFrame({
     "price": [899.99, 24.50, 49.90, 249.00, 79.99],
     "stock": [15, 120, 75, 30, 50]
 })
+import pandas as pd
+
+# Dataset
+PRODUCTS_DF = pd.DataFrame({
+    "product_id": [101, 102, 103, 104, 105],
+    "product_name": ["Laptop", "Mouse", "Keyboard", "Monitor", "Headphones"],
+    "price": [899.99, 24.50, 49.90, 249.00, 79.99],
+    "stock": [15, 120, 75, 30, 50]
+})
+
+# Function implementation
+def filter_rows_above_threshold(df: pd.DataFrame, column: str, threshold: float) -> pd.DataFrame:
+    return df[df[column] > threshold]
+
+# Test: products priced above €100
+result = filter_rows_above_threshold(PRODUCTS_DF, "price", 100.0)
+
+print(result)
+
 
 # Dataset for Sub-task 2: Weather sensor data containing missing values (NaN)
 WEATHER_DF = pd.DataFrame({
@@ -21,6 +40,17 @@ WEATHER_DF = pd.DataFrame({
     "humidity": [55.0, 68.0, None, 72.0, 60.0]
 })
 
+import pandas as pd
+
+WEATHER_DF = pd.DataFrame({
+    "city": ["Rome", "Milan", "Naples", "Turin", "Florence"],
+    "temperature": [22.5, None, 25.0, 18.0, None],
+    "humidity": [55.0, 68.0, None, 72.0, 60.0]
+})
+print(WEATHER_DF.isnull())
+
+print(WEATHER_DF.isnull().sum())
+
 # Dataset for Sub-task 3: Employee department salaries
 EMPLOYEES_DF = pd.DataFrame({
     "employee_id": [1, 2, 3, 4, 5, 6],
@@ -28,6 +58,14 @@ EMPLOYEES_DF = pd.DataFrame({
     "department": ["Engineering", "HR", "Engineering", "Sales", "HR", "Sales"],
     "salary": [75000.0, 52000.0, 82000.0, 61000.0, 54000.0, 64000.0]
 })
+
+department_avg_salary = (
+    EMPLOYEES_DF.groupby("department")["salary"]
+    .mean()
+    .reset_index()
+)
+
+print(department_avg_salary)
 
 # Datasets for Sub-task 4: Relational tables for merging
 CUSTOMERS_DF = pd.DataFrame({
@@ -40,6 +78,9 @@ ORDERS_DF = pd.DataFrame({
     "customer_id": [1, 2, 1, 3],
     "amount": [120.50, 45.00, 310.00, 89.90]
 })
+merged_df = pd.merge(CUSTOMERS_DF, ORDERS_DF, on="customer_id", how="left")
+
+print(merged_df)
 
 # Dataset for Sub-task 5: Students and exam scores
 STUDENTS_DF = pd.DataFrame({
@@ -47,6 +88,18 @@ STUDENTS_DF = pd.DataFrame({
     "score": [88, 95, 72, 91, 84, 78],
     "age": [20, 21, 19, 22, 20, 21]
 })
+
+import pandas as pd
+
+STUDENTS_DF = pd.DataFrame({
+    "student_name": ["Emma", "Liam", "Olivia", "Noah", "Ava", "Lucas"],
+    "score": [88, 95, 72, 91, 84, 78],
+    "age": [20, 21, 19, 22, 20, 21]
+})
+high_scorers = STUDENTS_DF[STUDENTS_DF["score"] > 85]
+
+print(high_scorers)
+
 
 # ==============================================================================
 # Sub-task Functions (Check readme.md for full details)
